@@ -38,6 +38,7 @@ function HeroSection() {
     phone: '',
     email: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -47,11 +48,34 @@ function HeroSection() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    // Here you would typically send the data to your backend
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      const result = await response.json();
+      console.log('Form submitted successfully:', result);
+      // Reset form or show success message
+      setFormData({ firstName: '', lastName: '', phone: '', email: '' });
+      alert('Thank you for your submission!');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting the form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className="py-8">
@@ -135,8 +159,8 @@ function HeroSection() {
               <p className="text-xs text-[#1c2641]">
                 By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s Terms of Service.
               </p>
-              <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white">
-                Get Started
+              <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white" disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : 'Get Started'}
               </Button>
             </form>
           </div>
@@ -234,19 +258,29 @@ function HairRestorationSteps() {
 function TestimonialCarousel() {
   const testimonials = [
     {
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/carousel/testimonial1.jpg",
       text: "This product exceeded all my expectations. Highly recommended!",
       name: "Sarah J."
     },
     {
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/carousel/testimonial2.jpg",
       text: "I've seen amazing results. This is truly a game-changer.",
       name: "Mike R."
     },
     {
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/carousel/testimonial3.jpg",
       text: "From skeptic to believer. I'm so glad I gave this a try!",
       name: "Emily T."
+    },
+    {
+      image: "/images/carousel/testimonial4.jpg",
+      text: "The results are incredible. I feel like a new person!",
+      name: "David L."
+    },
+    {
+      image: "/images/carousel/testimonial5.jpg",
+      text: "Professional service and amazing outcomes. Thank you!",
+      name: "Lisa M."
     }
   ]
 
@@ -265,7 +299,8 @@ function TestimonialCarousel() {
                       alt={`Testimonial image for ${testimonial.name}`}
                       width={300}
                       height={300}
-                      className="rounded-lg"
+                      className="rounded-lg object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                   <div className="text-center">
