@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/accordion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { FormStatus } from '@/components/FormStatus';
 
 function Header() {
   return (
@@ -38,7 +39,8 @@ function HeroSection() {
     phone: '',
     email: ''
   })
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -49,8 +51,8 @@ function HeroSection() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault()
+    setFormStatus('submitting');
     try {
       const response = await fetch('/api/submit-form', {
         method: 'POST',
@@ -66,16 +68,13 @@ function HeroSection() {
 
       const result = await response.json();
       console.log('Form submitted successfully:', result);
-      // Reset form or show success message
       setFormData({ firstName: '', lastName: '', phone: '', email: '' });
-      alert('Thank you for your submission!');
+      setFormStatus('success');
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting the form. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      setFormStatus('error');
     }
-  };
+  }
 
   return (
     <main className="py-8">
@@ -114,7 +113,7 @@ function HeroSection() {
                   value={formData.firstName}
                   onChange={handleInputChange}
                   required
-                  className="w-full"
+                  className="w-full text-[#1c2641]"
                 />
               </div>
               <div>
@@ -126,7 +125,7 @@ function HeroSection() {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   required
-                  className="w-full"
+                  className="w-full text-[#1c2641]"
                 />
               </div>
               <div>
@@ -138,7 +137,7 @@ function HeroSection() {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
-                  className="w-full"
+                  className="w-full text-[#1c2641]"
                 />
               </div>
               <div>
@@ -150,7 +149,7 @@ function HeroSection() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full"
+                  className="w-full text-[#1c2641]"
                 />
               </div>
               <p className="text-xs text-[#1c2641]">
@@ -159,9 +158,10 @@ function HeroSection() {
               <p className="text-xs text-[#1c2641]">
                 By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s Terms of Service.
               </p>
-              <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white" disabled={isSubmitting}>
-                {isSubmitting ? 'Submitting...' : 'Get Started'}
+              <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white" disabled={formStatus === 'submitting'}>
+                {formStatus === 'submitting' ? 'Submitting...' : 'Get Started'}
               </Button>
+              <FormStatus status={formStatus} />
             </form>
           </div>
         </div>
