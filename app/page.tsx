@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Target, Sprout, Diamond, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone } from "lucide-react"
+import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone } from "lucide-react"
 import Image from "next/image"
 import {
   Accordion,
@@ -133,7 +133,7 @@ function HeroSection() {
                 This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
               </p>
               <p className="text-xs text-[#1c2641]">
-                By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I'm not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair's Terms of Service.
+                By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s Terms of Service.
               </p>
               <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white">
                 Get Started
@@ -326,9 +326,10 @@ function FAQSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
           Frequently Asked Questions about Hair Implants
+        
         </h2>
         <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible  className="w-full text-white">
+          <Accordion type="single" collapsible className="w-full text-white">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:text-gray-400">How much does a hair implant cost?</AccordionTrigger>
               <AccordionContent className="text-gray-300">
@@ -350,7 +351,7 @@ function FAQSection() {
             <AccordionItem value="item-4">
               <AccordionTrigger className="hover:text-gray-400">What is the recovery process like?</AccordionTrigger>
               <AccordionContent className="text-gray-300">
-                For the first few days, we will provide you with a post-operative care kit, along with hygiene and scalp care instructions. You'll have a follow-up appointment at our center for your initial washes. Over the first year, regular check-ups with your doctor are included to monitor your progress and ensure the best results.
+                For the first few days, we will provide you with a post-operative care kit, along with hygiene and scalp care instructions. You&apos;ll have a follow-up appointment at our center for your initial washes. Over the first year, regular check-ups with your doctor are included to monitor your progress and ensure the best results.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
