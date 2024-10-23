@@ -15,6 +15,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { FormStatus } from '@/components/FormStatus';
+import { useRouter } from 'next/navigation'
 
 function Header() {
   return (
@@ -33,6 +34,7 @@ function Header() {
 }
 
 function HeroSection() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -70,6 +72,7 @@ function HeroSection() {
       console.log('Form submitted successfully:', result);
       setFormData({ firstName: '', lastName: '', phone: '', email: '' });
       setFormStatus('success');
+      router.push('/thank-you');
     } catch (error) {
       console.error('Error submitting form:', error);
       setFormStatus('error');
