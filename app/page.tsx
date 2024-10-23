@@ -156,6 +156,19 @@ function AnnouncementBar() {
 
   return (
     <div className="bg-primary text-primary-foreground overflow-hidden py-2">
+      <style jsx>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
+        }
+      `}</style>
       <div className="animate-scroll flex whitespace-nowrap">
         {[...Array(2)].map((_, index) => (
           <div key={index} className="flex">
