@@ -346,7 +346,7 @@ function TestimonialCarousel() {
 
   return (
     <div className="py-12 px-4 md:px-6 lg:px-8 bg-gray-900">
-      <h2 className="text-3xl font-bold text-center mb-8 text-white">What Our Customers Say</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-white">What Our Patient Say</h2>
       <Carousel className="w-full max-w-xl mx-auto">
         <CarouselContent>
           {testimonials.map((testimonial, index) => (
