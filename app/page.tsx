@@ -46,14 +46,44 @@ function HeroSection() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
+    let formattedValue = value;
+
+    if (name === 'phone') {
+      // Remove all non-digit characters
+      const digitsOnly = value.replace(/\D/g, '').slice(0, 10);
+      // Format as XXX-XXX-XXXX
+      formattedValue = digitsOnly.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    }
+
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: formattedValue
     }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate all fields are filled
+    if (!formData.firstName || !formData.lastName || !formData.phone || !formData.email) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    // Validate phone number format
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      alert('Please enter a valid phone number in the format 123-456-7890');
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
     setFormStatus('submitting');
     try {
       const response = await fetch('/api/submit-form', {
@@ -89,14 +119,14 @@ function HeroSection() {
           <p className="text-xl mb-6">The permanent solution for hair loss</p>
           <div className="relative">
             <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="Before and After"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero-medicalhair2-oP0uGoVyzNzNvNJWueoYwQnKF1hdls.jpg"
+              alt="Before and After Hair Restoration"
               width={600}
-              height={400}
-              className="rounded-lg w-full h-auto"
+              height={330}
+              className="rounded-lg w-full h-auto object-cover"
             />
             <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 p-2 rounded-bl-lg">
-              <p className="text-sm">Nick H.</p>
+              <p className="text-sm">Williams</p>
               <p className="text-xs">MedicalHair Patient</p>
               <p className="text-xs">Results may vary</p>
             </div>
@@ -117,6 +147,8 @@ function HeroSection() {
                   onChange={handleInputChange}
                   required
                   className="w-full text-[#1c2641]"
+                  placeholder="Enter your first name"
+                  maxLength={50}
                 />
               </div>
               <div>
@@ -129,6 +161,8 @@ function HeroSection() {
                   onChange={handleInputChange}
                   required
                   className="w-full text-[#1c2641]"
+                  placeholder="Enter your last name"
+                  maxLength={50}
                 />
               </div>
               <div>
@@ -141,6 +175,8 @@ function HeroSection() {
                   onChange={handleInputChange}
                   required
                   className="w-full text-[#1c2641]"
+                  placeholder="🇺🇸 Enter your phone number"
+                  maxLength={12}
                 />
               </div>
               <div>
@@ -152,7 +188,10 @@ function HeroSection() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                   className="w-full text-[#1c2641]"
+                  placeholder="Enter your email address"
+                  maxLength={100}
                 />
               </div>
               <p className="text-xs text-[#1c2641]">
@@ -261,29 +300,47 @@ function HairRestorationSteps() {
 function TestimonialCarousel() {
   const testimonials = [
     {
-      image: "/images/carousel/testimonial1.jpg",
-      text: "This product exceeded all my expectations. Highly recommended!",
-      name: "Sarah J."
+      image: {
+        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HOME_Correa_Medical-Hair_D-OXPX4PNkxdvflZKJV3rnrdyKuvLs3M.png",
+        alt: "Before and after image of Sebastián Correa"
+      },
+      text: "The results exceeded my expectations. I feel more confident than ever!",
+      name: "Sebastián Correa",
+      title: "Make up Artist"
     },
     {
-      image: "/images/carousel/testimonial2.jpg",
-      text: "I've seen amazing results. This is truly a game-changer.",
-      name: "Mike R."
+      image: {
+        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/TESTIMONIOS_Divitta_nuevo_D-bs48YcI3McNbEFEZeysvIWsW729SfV.png",
+        alt: "Before and after image of hair restoration patient"
+      },
+      text: "I'm amazed at how natural it looks. The transformation is incredible!",
+      name: "David S."
     },
     {
-      image: "/images/carousel/testimonial3.jpg",
-      text: "From skeptic to believer. I'm so glad I gave this a try!",
-      name: "Emily T."
+      image: {
+        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HOME_Rovira_Medical-Hair_D-Rdv0ANs7Z5BjEkbPXCCdnDyFr6Nys8.png",
+        alt: "Before and after image of Gustavo Rovira"
+      },
+      text: "The procedure was smooth, and the results are fantastic. I feel years younger!",
+      name: "Gustavo Rovira",
+      title: "Artist"
     },
     {
-      image: "/images/carousel/testimonial4.jpg",
-      text: "The results are incredible. I feel like a new person!",
-      name: "David L."
+      image: {
+        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/TESTIMONIOS_Baratta_nuevo_D-YBVOeUBttb2Zr69H3hFrZw2fdbi0M0.png",
+        alt: "Before and after image of hair restoration patient"
+      },
+      text: "The difference is night and day. I couldn't be happier with the results!",
+      name: "Michael B."
     },
     {
-      image: "/images/carousel/testimonial5.jpg",
-      text: "Professional service and amazing outcomes. Thank you!",
-      name: "Lisa M."
+      image: {
+        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HOME_Aimar_Medical-Hair_D-l7YzSMnDFg1b5AsAe6bJwFkWYo6djo.png",
+        alt: "Before and after image of Guillermo Aimar"
+      },
+      text: "As a martial artist, I was skeptical, but the results speak for themselves. Incredible work!",
+      name: "Guillermo Aimar",
+      title: "Martial Arts - Acupuncture"
     }
   ]
 
@@ -298,17 +355,18 @@ function TestimonialCarousel() {
                 <CardContent className="p-6 flex flex-col items-center">
                   <div className="mb-6">
                     <Image
-                      src={testimonial.image}
-                      alt={`Testimonial image for ${testimonial.name}`}
-                      width={300}
-                      height={300}
-                      className="rounded-lg object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      src={testimonial.image.src}
+                      alt={testimonial.image.alt}
+                      width={800}
+                      height={600}
+                      className="rounded-lg object-cover w-full"
+                      sizes="(max-width: 640px) 400px, (max-width: 768px) 600px, 800px"
                     />
                   </div>
                   <div className="text-center">
                     <p className="text-lg mb-4 italic text-gray-300">&ldquo;{testimonial.text}&rdquo;</p>
                     <p className="font-semibold text-white">{testimonial.name}</p>
+                    {testimonial.title && <p className="text-sm text-gray-400">{testimonial.title}</p>}
                   </div>
                 </CardContent>
               </Card>
