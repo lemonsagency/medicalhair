@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone, Star, CheckCircle } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import {
   Accordion,
   AccordionContent,
