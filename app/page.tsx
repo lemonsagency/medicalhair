@@ -1,11 +1,11 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone } from "lucide-react"
+import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone, Star, CheckCircle } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import {
   Accordion,
   AccordionContent,
@@ -16,19 +16,23 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { FormStatus } from '@/components/FormStatus';
 import { useRouter } from 'next/navigation'
+import { Button } from "@/components/ui/button";
 
 function Header() {
   return (
-    <header className="flex justify-between items-center py-4">
+    <header className="flex justify-between items-center py-4 border-b border-white border-opacity-50">
       <Image
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-IqTAyj66AeUCYNjtKTPGb4j4doLg1K.png"
         alt="Medical Hair Logo"
         width={222}
         height={38}
       />
-      <Button variant="outline" className="bg-[#e5f1f8] text-[#0063af] hover:bg-[#d0e8f5]">
+      <a 
+        href="tel:+13058684811" 
+        className="bg-[#96B91B] text-black font-semibold px-4 py-2 rounded-md text-sm hover:bg-[#85A619] transition-colors duration-300"
+      >
         Free Consultation
-      </Button>
+      </a>
     </header>
   )
 }
@@ -136,7 +140,7 @@ function HeroSection() {
         <div className="md:w-1/2 max-w-md">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-[#1c2641] mb-4">Schedule Your Free Consultation Today!</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form id="consultation-form" onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label htmlFor="firstName" className="text-[#1c2641]">First Name*</Label>
                 <Input
@@ -254,18 +258,18 @@ function AnnouncementBar() {
 function HairRestorationSteps() {
   const steps = [
     {
-      title: "Consultation & Personalized Planning",
-      description: "Your journey starts with a one-on-one consultation where we collaborate with you to design the perfect plan. The design room is where we prepare your scalp, carefully marking the areas for surgery. You'll have an active role in this process, ensuring the design aligns with your vision for natural-looking results.",
+      title: "Consultation & Planning",
+      description: "Begin with a personalized consultation to design your hair restoration plan. In the design room, we prepare your scalp, marking the surgery areas, and collaborate with you to achieve your vision for natural results.",
       icon: <Stethoscope className="w-8 h-8 text-lime-500" />,
     },
     {
-      title: "Precision Surgery: Extraction & Implantation",
-      description: "During the procedure, we use advanced techniques to extract hair follicles from the donor area with care and precision. Each follicle is classified and implanted strategically. Single-hair follicles create a natural hairline, while multi-hair units are used to improve density in areas that need it most, ensuring a flawless, even appearance.",
+      title: "Precision Surgery",
+      description: "We utilize advanced techniques to extract hair follicles carefully and implant them strategically. Single-hair follicles create a natural hairline, while multi-hair units enhance density, ensuring a flawless appearance.",
       icon: <Scissors className="w-8 h-8 text-lime-500" />,
     },
     {
-      title: "Recovery & Ongoing Support",
-      description: "After the surgery, your recovery process begins with detailed post-op care instructions. Our team will guide you every step of the way, from immediate aftercare to regular follow-ups over the next year, ensuring your implant looks great and lasts for the long term.",
+      title: "Recovery & Support",
+      description: "Post-surgery, you'll receive detailed aftercare instructions, with our team supporting you through recovery and regular follow-ups to ensure lasting results.",
       icon: <UserCheck className="w-8 h-8 text-lime-500" />,
     },
   ]
@@ -297,88 +301,107 @@ function HairRestorationSteps() {
   )
 }
 
-function TestimonialCarousel() {
-  const testimonials = [
-    {
-      image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HOME_Correa_Medical-Hair_D-OXPX4PNkxdvflZKJV3rnrdyKuvLs3M.png",
-        alt: "Before and after image of Sebastián Correa"
-      },
-      text: "The results exceeded my expectations. I feel more confident than ever!",
-      name: "Sebastián Correa",
-      title: "Make up Artist"
-    },
-    {
-      image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/TESTIMONIOS_Divitta_nuevo_D-bs48YcI3McNbEFEZeysvIWsW729SfV.png",
-        alt: "Before and after image of hair restoration patient"
-      },
-      text: "I'm amazed at how natural it looks. The transformation is incredible!",
-      name: "David S."
-    },
-    {
-      image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HOME_Rovira_Medical-Hair_D-Rdv0ANs7Z5BjEkbPXCCdnDyFr6Nys8.png",
-        alt: "Before and after image of Gustavo Rovira"
-      },
-      text: "The procedure was smooth, and the results are fantastic. I feel years younger!",
-      name: "Gustavo Rovira",
-      title: "Artist"
-    },
-    {
-      image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/TESTIMONIOS_Baratta_nuevo_D-YBVOeUBttb2Zr69H3hFrZw2fdbi0M0.png",
-        alt: "Before and after image of hair restoration patient"
-      },
-      text: "The difference is night and day. I couldn't be happier with the results!",
-      name: "Michael B."
-    },
-    {
-      image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HOME_Aimar_Medical-Hair_D-l7YzSMnDFg1b5AsAe6bJwFkWYo6djo.png",
-        alt: "Before and after image of Guillermo Aimar"
-      },
-      text: "As a martial artist, I was skeptical, but the results speak for themselves. Incredible work!",
-      name: "Guillermo Aimar",
-      title: "Martial Arts - Acupuncture"
-    }
+
+function ReviewsCarousel() {
+  const reviews = [
+  {
+    name: "Jake",
+    location: "Miami Clinic",
+    content: "I got my hair back in just one day! The procedure was quick, and now I have a natural look that lasts. Highly recommend Medical Hair!",
+    rating: 5,
+    imageSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rev_06-ahWqX9Ys8BXCaC7vqgHSu30ElMhMjI.jpg"
+  },
+  {
+    name: "Mark",
+    location: "Miami Clinic",
+    content: "Medical Hair transformed my confidence! The results are invisible, and I love that it's my own hair. Permanent and hassle-free!",
+    rating: 5,
+    imageSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rev_01-c5qYz0mKI4anuemXuLhvAcWFspv1uH.jpg"
+  },
+  {
+    name: "Ryan",
+    location: "Miami Clinic",
+    content: "Fast and safe! The team at Medical Hair made the transplant easy. I was back to my routine in no time with stunning results!",
+    rating: 5,
+    imageSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rev_04-i0paSc0bo4hrzS1JnXm6yFrQJ2n9df.jpg"
+  },
+  {
+    name: "Chris",
+    location: "Miami Clinic",
+    content: "I can't believe how natural my hair looks after the transplant. No scars and no one can tell! Medical Hair truly delivers.",
+    rating: 5,
+    imageSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rev_02-6SngljOz3cIvQWVB0SIx2pg13gmwxe.jpg"
+  },
+  {
+    name: "Daniel",
+    location: "Miami Clinic",
+    content: "Amazing experience! The procedure was quick, and I felt no complications. My hair has grown back beautifully and is here to stay!",
+    rating: 5,
+    imageSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rev_03-HtbUTGEgpSMseiv1pj0SJTz0D8HNom.jpg"
+  },
+  {
+    name: "David",
+    location: "Miami Clinic",
+    content: "I'm thrilled with my new hair! The Medical Hair team was professional and made sure everything went smoothly. Highly satisfied!",
+    rating: 5,
+    imageSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rev_05-T5Qsv2XBISWxi9QTdwCYkgN8aT9wyp.jpg"
+  }
   ]
 
   return (
-    <div className="py-12 px-4 md:px-6 lg:px-8 bg-gray-900">
-      <h2 className="text-3xl font-bold text-center mb-8 text-white">What Our Patient Say</h2>
-      <Carousel className="w-full max-w-xl mx-auto">
+    <div className="bg-black py-12 flex flex-col items-center justify-center relative overflow-hidden">
+      <h2 className="text-3xl font-bold text-center mb-8 text-white">What Our Patients Say</h2>
+      <div className="absolute w-[600px] h-[600px] bg-[#96b91b] rounded-full blur-[150px] opacity-20 -top-[300px] -left-[300px]"></div>
+      <div className="absolute w-[600px] h-[600px] bg-[#96b91b] rounded-full blur-[150px] opacity-20 -bottom-[300px] -right-[300px]"></div>
+      <Carousel className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto relative z-10">
         <CarouselContent>
-          {testimonials.map((testimonial, index) => (
+          {reviews.map((review, index) => (
             <CarouselItem key={index}>
-              <Card className="border-none shadow-none bg-transparent">
-                <CardContent className="p-6 flex flex-col items-center">
-                  <div className="mb-6">
+              <Card className="bg-white/95 backdrop-blur-sm h-full">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <div className="w-full mb-4 aspect-[4/3] relative overflow-hidden rounded-md">
                     <Image
-                      src={testimonial.image.src}
-                      alt={testimonial.image.alt}
-                      width={800}
-                      height={600}
-                      className="rounded-lg object-cover w-full"
-                      sizes="(max-width: 640px) 400px, (max-width: 768px) 600px, 800px"
+                      src={review.imageSrc}
+                      alt={`Before and after hair transplant for ${review.name}`}
+                      layout="fill"
+                      objectFit="cover"
                     />
                   </div>
-                  <div className="text-center">
-                    <p className="text-lg mb-4 italic text-gray-300">&ldquo;{testimonial.text}&rdquo;</p>
-                    <p className="font-semibold text-white">{testimonial.name}</p>
-                    {testimonial.title && <p className="text-sm text-gray-400">{testimonial.title}</p>}
+                  <div className="w-full flex flex-col justify-between flex-grow">
+                    <div>
+                      <div className="flex items-center mb-2">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      <div className="text-sm text-indigo-500 font-semibold mb-2">{review.location}</div>
+                      <p className="text-sm text-gray-600 mb-4">{review.content}</p>
+                    </div>
+                    <div className="text-sm font-medium text-gray-700">{review.name}</div>
+                    <div className="flex items-center text-xs text-green-600 mt-1">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Verified Customer
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2" />
-        <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2" />
+        <CarouselPrevious className="text-white bg-black/50 hover:bg-black/70" />
+        <CarouselNext className="text-white bg-black/50 hover:bg-black/70" />
       </Carousel>
     </div>
   )
 }
+
+<div className="bg-black py-12 text-center">
+  <a href="#consultation-form">
+    <Button size="lg" className="bg-[#96B91B] text-black hover:bg-[#85A619] transition-colors duration-300">
+      Get my free consultation
+    </Button>
+  </a>
+</div>
 
 function BenefitsSection() {
   return (
@@ -435,7 +458,6 @@ function FAQSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
           Frequently Asked Questions about Hair Implants
-        
         </h2>
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="w-full text-white">
@@ -465,6 +487,60 @@ function FAQSection() {
             </AccordionItem>
           </Accordion>
         </div>
+      </div>
+    </div>
+  )
+}
+
+function ClinicGallery() {
+  const images = [
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20241022-WA0011-qXMF9cxZkhxOPCUbjuRejBLzSDIbDh.jpg",
+      alt: "Exterior view of Medical Hair building"
+    },
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20241022-WA0010-7BlREVeSphW2UiFNKXGNgCUtkD0qnj.jpg",
+      alt: "Medical treatment room with white chair"
+    },
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20241022-WA0004-9XYdnoaLfAD9b39488CHvBcjqQPbqt.jpg",
+      alt: "Lounge area with city view"
+    },
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20241022-WA0006-2AIHJsBfBjKkPn072MCDQ2rqUf93sY.jpg",
+      alt: "Another medical treatment room"
+    },
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20241022-WA0008-4vdAg2jMi7XYlAsboFpYkpkhoWHEUa.jpg",
+      alt: "Office space with wooden desk and computer"
+    }
+  ];
+
+  return (
+    <div className="bg-gray-900 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-center mb-8 text-white">Our Miami Clinic</h2>
+        <Carousel className="w-full max-w-4xl mx-auto">
+          <CarouselContent>
+            {images.map((image, index) => (
+              <CarouselItem key={index}>
+                <Card className="border-none shadow-none bg-transparent">
+                  <CardContent className="p-0">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={800}
+                      height={600}
+                      className="rounded-lg object-cover w-full h-[400px]"
+                    />
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+        </Carousel>
       </div>
     </div>
   )
@@ -507,9 +583,17 @@ export default function LandingPage() {
       </div>
       <AnnouncementBar />
       <HairRestorationSteps />
-      <TestimonialCarousel />
+      <ReviewsCarousel />
+      <div className="bg-black py-12 text-center">
+        <a href="#consultation-form">
+          <Button size="lg" className="bg-[#96B91B] text-black hover:bg-[#85A619] transition-colors duration-300">
+            Get my free consultation
+          </Button>
+        </a>
+      </div>
       <BenefitsSection />
       <FAQSection />
+      <ClinicGallery />
       <Footer />
     </div>
   )
