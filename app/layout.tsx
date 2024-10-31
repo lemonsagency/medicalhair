@@ -1,11 +1,15 @@
 import FacebookPixel from '../components/FacebookPixel'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body>
         {children}
-        <FacebookPixel pixelId="YOUR_PIXEL_ID" />
+        <FacebookPixel pixelId="416000848222538" />
       </body>
     </html>
   )
