@@ -105,7 +105,7 @@ function HeroSection() {
       console.log('Form submitted successfully:', result);
       setFormData({ firstName: '', lastName: '', phone: '', email: '' });
       setFormStatus('success');
-      router.push('/thank-you?submitted=true');
+      router.push('/thank-you');
     } catch (error) {
       console.error('Error submitting form:', error);
       setFormStatus('error');
