@@ -7,9 +7,20 @@ import Image from "next/image"
 import Link from 'next/link'
 import { MapPin, Phone } from "lucide-react"
 
+interface FacebookPixelParams {
+  content_name?: string;
+  status?: string;
+  value?: number;
+  currency?: string;
+}
+
 declare global {
   interface Window {
-    fbq: (type: string, eventName: string, params?: Record<string, any>) => void;
+    fbq: (
+      type: string,
+      eventName: string,
+      params?: FacebookPixelParams
+    ) => void;
   }
 }
 
@@ -82,10 +93,11 @@ export default function ThankYouPage() {
     if (formSubmitted && !eventFired) {
       setEventFired(true)
       if (typeof window.fbq === 'function') {
-        window.fbq('track', 'CompleteRegistration', {
+        const params: FacebookPixelParams = {
           content_name: 'Hair Restoration Consultation',
           status: 'success'
-        })
+        }
+        window.fbq('track', 'CompleteRegistration', params)
       }
     }
   }, [searchParams, eventFired])
