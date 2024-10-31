@@ -2,22 +2,36 @@
 
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import ReactPixel from 'react-facebook-pixel'
+
+declare global {
+  interface Window {
+    fbq: any
+  }
+}
 
 export default function FacebookPixel({ pixelId }: { pixelId: string }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    ReactPixel.init(pixelId)
-    ReactPixel.pageView()
+    // Initialize Facebook Pixel
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
 
-    // This function will run on route changes
+    fbq('init', pixelId);
+    fbq('track', 'PageView');
+
+    // Track page views on route changes
     const handleRouteChange = () => {
-      ReactPixel.pageView()
+      fbq('track', 'PageView');
     }
 
-    // Call it once on mount
     handleRouteChange()
   }, [pixelId, pathname, searchParams])
 

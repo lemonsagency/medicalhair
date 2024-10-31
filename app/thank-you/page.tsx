@@ -89,10 +89,7 @@ export default function ThankYouPage() {
   const [eventFired, setEventFired] = useState(false)
 
   useEffect(() => {
-    // Check if searchParams is not null and has the method
-    const formSubmitted = searchParams && searchParams.get 
-      ? searchParams.get('submitted') === 'true' 
-      : false
+    const formSubmitted = searchParams?.get('submitted') === 'true'
 
     if (formSubmitted && !eventFired) {
       setEventFired(true)
@@ -101,7 +98,8 @@ export default function ThankYouPage() {
           content_name: 'Hair Restoration Consultation',
           status: 'success'
         }
-        window.fbq('track', 'CompleteRegistration', params)
+        window.fbq('track', 'Lead', params)
+        console.log('Facebook Pixel: CompleteRegistration event fired')
       }
     }
   }, [searchParams, eventFired])
