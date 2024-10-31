@@ -1,31 +1,18 @@
-'use client'
-
-import { Suspense } from 'react'
-import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import { Button } from "@/components/ui/button"
 
-function NotFoundContent() {
+export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100dvh] bg-black text-white p-4">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold">Page Not Found</h1>
-        <p className="text-xl text-gray-400">
-          The page you are looking for doesn't exist or has been moved.
-        </p>
-        <Link href="/">
-          <Button className="bg-[#0063af] hover:bg-[#004d8c] text-white mt-4">
-            Return to Home Page
-          </Button>
-        </Link>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+      <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+      <p className="text-xl mb-8">
+        We&apos;re sorry, but the thank you page you&apos;re looking for doesn&apos;t exist.
+      </p>
+      <Link href="/">
+        <Button className="bg-[#0063af] hover:bg-[#004d8c] text-white">
+          Return to Home Page
+        </Button>
+      </Link>
     </div>
-  )
-}
-
-export default function NotFoundPage() {
-  return (
-    <Suspense fallback={<NotFoundContent />}>
-      <NotFoundContent />
-    </Suspense>
   )
 }
