@@ -7,14 +7,9 @@ import Image from "next/image"
 import Link from 'next/link'
 import { MapPin, Phone } from "lucide-react"
 
-// Define the Facebook Pixel type
 declare global {
   interface Window {
-    fbq: (
-      type: string,
-      eventName: string,
-      params?: Record<string, string>
-    ) => void
+    fbq: (type: string, eventName: string, params?: Record<string, any>) => void;
   }
 }
 
