@@ -75,8 +75,8 @@ export default function ThankYouPage() {
     const formSubmitted = searchParams.get('submitted') === 'true'
     if (formSubmitted && !eventFired) {
       setEventFired(true)
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'CompleteRegistration', {
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'CompleteRegistration', {
           content_name: 'Hair Restoration Consultation',
           status: 'success'
         })
