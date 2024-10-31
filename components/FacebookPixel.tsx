@@ -5,7 +5,8 @@ import { usePathname, useSearchParams } from 'next/navigation'
 
 declare global {
   interface Window {
-    fbq: any
+    fbq: (...args: unknown[]) => void;
+    _fbq: unknown;
   }
 }
 
@@ -15,24 +16,38 @@ export default function FacebookPixel({ pixelId }: { pixelId: string }) {
 
   useEffect(() => {
     // Initialize Facebook Pixel
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    const initFbq = () => {
+      const fbq = function(...args: unknown[]) {
+        if (fbq.callMethod) {
+          fbq.callMethod.apply(fbq, args);
+        } else {
+          fbq.queue.push(args);
+        }
+      };
+      fbq.push = fbq;
+      fbq.loaded = true;
+      fbq.version = '2.0';
+      fbq.queue = [];
+      window.fbq = fbq;
+    };
 
-    fbq('init', pixelId);
-    fbq('track', 'PageView');
+    if (!window.fbq) {
+      initFbq();
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      document.head.appendChild(script);
+    }
+
+    window.fbq('init', pixelId);
+    window.fbq('track', 'PageView');
 
     // Track page views on route changes
     const handleRouteChange = () => {
-      fbq('track', 'PageView');
+      window.fbq('track', 'PageView');
     }
 
-    handleRouteChange()
+    handleRouteChange();
   }, [pixelId, pathname, searchParams])
 
   return null
