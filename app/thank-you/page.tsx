@@ -1,4 +1,7 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from 'next/link'
@@ -65,6 +68,22 @@ function Footer() {
 }
 
 export default function ThankYouPage() {
+  const searchParams = useSearchParams()
+  const [eventFired, setEventFired] = useState(false)
+
+  useEffect(() => {
+    const formSubmitted = searchParams.get('submitted') === 'true'
+    if (formSubmitted && !eventFired) {
+      setEventFired(true)
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'CompleteRegistration', {
+          content_name: 'Hair Restoration Consultation',
+          status: 'success'
+        })
+      }
+    }
+  }, [searchParams, eventFired])
+
   return (
     <div className="bg-black text-white min-h-screen">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
