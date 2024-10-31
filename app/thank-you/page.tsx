@@ -7,6 +7,17 @@ import Image from "next/image"
 import Link from 'next/link'
 import { MapPin, Phone } from "lucide-react"
 
+// Define the Facebook Pixel type
+declare global {
+  interface Window {
+    fbq: (
+      type: string,
+      eventName: string,
+      params?: Record<string, string>
+    ) => void
+  }
+}
+
 function Header() {
   return (
     <header className="flex justify-between items-center py-4">
@@ -75,8 +86,8 @@ export default function ThankYouPage() {
     const formSubmitted = searchParams.get('submitted') === 'true'
     if (formSubmitted && !eventFired) {
       setEventFired(true)
-      if (typeof (window as any).fbq === 'function') {
-        (window as any).fbq('track', 'CompleteRegistration', {
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'CompleteRegistration', {
           content_name: 'Hair Restoration Consultation',
           status: 'success'
         })
