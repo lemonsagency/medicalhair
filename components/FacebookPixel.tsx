@@ -12,7 +12,7 @@ export default function FacebookPixel({ pixelId }: { pixelId: string }) {
   useEffect(() => {
     if (pathname) {
       console.log('PageView event fired')
-      // @ts-expect-error
+      // @ts-expect-error - fbq is added by the Facebook Pixel script
       window.fbq('track', 'PageView')
     }
   }, [pathname])
@@ -22,7 +22,7 @@ export default function FacebookPixel({ pixelId }: { pixelId: string }) {
     console.log('Form submitted:', formSubmitted)
     if (formSubmitted) {
       console.log('Attempting to fire CompleteRegistration event')
-      // @ts-expect-error
+      // @ts-expect-error - fbq is added by the Facebook Pixel script
       window.fbq('track', 'CompleteRegistration', {
         content_name: 'Hair Restoration Consultation',
         status: 'success'
