@@ -3,6 +3,7 @@
 import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 import { useEffect } from 'react'
+import Image from 'next/image'
 
 export default function FacebookPixel({ pixelId }: { pixelId: string }) {
   const pathname = usePathname()
@@ -11,7 +12,7 @@ export default function FacebookPixel({ pixelId }: { pixelId: string }) {
   useEffect(() => {
     if (pathname) {
       console.log('PageView event fired')
-      // @ts-ignore
+      // @ts-expect-error
       window.fbq('track', 'PageView')
     }
   }, [pathname])
@@ -21,7 +22,7 @@ export default function FacebookPixel({ pixelId }: { pixelId: string }) {
     console.log('Form submitted:', formSubmitted)
     if (formSubmitted) {
       console.log('Attempting to fire CompleteRegistration event')
-      // @ts-ignore
+      // @ts-expect-error
       window.fbq('track', 'CompleteRegistration', {
         content_name: 'Hair Restoration Consultation',
         status: 'success'
@@ -48,12 +49,13 @@ export default function FacebookPixel({ pixelId }: { pixelId: string }) {
         `}
       </Script>
       <noscript>
-        <img
-          height="1"
-          width="1"
-          style={{ display: 'none' }}
+        <Image
           src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
           alt=""
+          width={1}
+          height={1}
+          style={{ display: 'none' }}
+          unoptimized
         />
       </noscript>
     </>
