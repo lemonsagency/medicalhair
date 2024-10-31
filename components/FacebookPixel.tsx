@@ -4,7 +4,6 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 import { useEffect } from 'react'
 import Image from 'next/image'
-import type { FacebookPixelParams } from '../types/facebook-pixel'
 
 export default function FacebookPixel({ pixelId }: { pixelId: string }) {
   const pathname = usePathname()
