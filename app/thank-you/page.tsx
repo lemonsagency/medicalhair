@@ -89,10 +89,14 @@ export default function ThankYouPage() {
   const [eventFired, setEventFired] = useState(false)
 
   useEffect(() => {
-    const formSubmitted = searchParams.get('submitted') === 'true'
+    // Check if searchParams is not null and has the method
+    const formSubmitted = searchParams && searchParams.get 
+      ? searchParams.get('submitted') === 'true' 
+      : false
+
     if (formSubmitted && !eventFired) {
       setEventFired(true)
-      if (typeof window.fbq === 'function') {
+      if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
         const params: FacebookPixelParams = {
           content_name: 'Hair Restoration Consultation',
           status: 'success'
