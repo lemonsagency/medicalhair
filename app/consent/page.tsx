@@ -12,10 +12,10 @@ export default function ConsentPage() {
             By opting into our SMS service for our hair transplant program, you agree to receive appointment reminders and confirmation texts from Zafiro Hair LLC. These messages will assist you in managing your hair transplant treatment and ensuring timely appointments.
           </p>
           <p>
-            You have the right to cancel the SMS service at any time. To unsubscribe, simply text "STOP" to the phone number provided. Once we receive your "STOP" request, we will send you an SMS confirming your unsubscribe status. After the confirmation, you will no longer receive any SMS messages from us. If you wish to rejoin the service, you can sign up again using the same process, and we will resume sending appointment reminders and confirmation texts to you.
+            You have the right to cancel the SMS service at any time. To unsubscribe, simply text &quot;STOP&quot; to the phone number provided. Once we receive your &quot;STOP&quot; request, we will send you an SMS confirming your unsubscribe status.
           </p>
           <p>
-            In the event that you experience any issues with our messaging program, you can reply with the keyword "HELP" to receive further assistance. Alternatively, you can reach out directly to our support email at lucas@lemons.agency for support.
+            In the event that you experience any issues with our messaging program, you can reply with the keyword &quot;HELP&quot; to receive further assistance. Alternatively, you can reach out directly to our support email at lucas@lemons.agency for support.
           </p>
           <p>
             Please note that carriers are not liable for any delayed or undelivered messages. Additionally, standard message and data rates may apply for both incoming and outgoing messages between us and you.
@@ -27,11 +27,7 @@ export default function ConsentPage() {
             For inquiries related to your privacy and data protection, we encourage you to review our privacy policy by visiting www.medicalhair.com.
           </p>
         </div>
-        <div className="mt-8">
-          <Link href="/">
-            <Button variant="outline">Back to Home</Button>
-          </Link>
-        </div>
+        
       </div>
     </div>
   )
