@@ -3,8 +3,9 @@
 import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone, Star, CheckCircle } from "lucide-react"
+import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone, Star, CheckCircle } from 'lucide-react'
 import Image from "next/image"
+import Link from 'next/link'
 import {
   Accordion,
   AccordionContent,
@@ -16,6 +17,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { FormStatus } from '@/components/FormStatus';
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button";
+import ReactPixel from 'react-facebook-pixel';
 
 function Header() {
   return (
@@ -105,6 +107,7 @@ function HeroSection() {
       console.log('Form submitted successfully:', result);
       setFormData({ firstName: '', lastName: '', phone: '', email: '' });
       setFormStatus('success');
+      ReactPixel.track('Lead', { content_name: 'Consultation Form' });
       router.push('/thank-you');
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -300,7 +303,6 @@ function HairRestorationSteps() {
   )
 }
 
-
 function ReviewsCarousel() {
   const reviews = [
   {
@@ -393,14 +395,6 @@ function ReviewsCarousel() {
     </div>
   )
 }
-
-<div className="bg-black py-12 text-center">
-  <a href="#consultation-form">
-    <Button size="lg" className="bg-[#96B91B] text-black hover:bg-[#85A619] transition-colors duration-300">
-      Get my free consultation
-    </Button>
-  </a>
-</div>
 
 function BenefitsSection() {
   return (
@@ -564,6 +558,11 @@ function Footer() {
               <a href="tel:+13058684811" className="hover:underline">+1 (305) 868-4811</a>
             </div>
           </address>
+        </div>
+        <div className="mt-4 text-center">
+          <Link href="/consent" className="text-sm hover:underline">
+            SMS Terms & Conditions
+          </Link>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm">
           <p>&copy; {new Date().getFullYear()} MedicalHair. All rights reserved.</p>
