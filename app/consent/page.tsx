@@ -1,5 +1,3 @@
-import React from 'react'
-import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 
 export default function ConsentPage() {
@@ -27,7 +25,6 @@ export default function ConsentPage() {
             For inquiries related to your privacy and data protection, we encourage you to review our privacy policy by visiting www.medicalhair.com.
           </p>
         </div>
-        
       </div>
     </div>
   )
