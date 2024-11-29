@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Sprout, Leaf, Scissors, Stethoscope, UserCheck, Zap, MapPin, Phone, Star, CheckCircle } from 'lucide-react'
@@ -17,7 +17,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { FormStatus } from '@/components/FormStatus';
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button";
-import ReactPixel from 'react-facebook-pixel';
 
 function Header() {
   return (
@@ -107,7 +106,6 @@ function HeroSection() {
       console.log('Form submitted successfully:', result);
       setFormData({ firstName: '', lastName: '', phone: '', email: '' });
       setFormStatus('success');
-      ReactPixel.track('Lead', { content_name: 'Consultation Form' });
       router.push('/thank-you');
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -228,20 +226,7 @@ function AnnouncementBar() {
 
   return (
     <div className="bg-primary text-primary-foreground overflow-hidden py-2">
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-scroll {
-          animation: scroll 30s linear infinite;
-        }
-      `}</style>
-      <div className="animate-scroll flex whitespace-nowrap">
+      <div className="flex whitespace-nowrap animate-scroll">
         {[...Array(2)].map((_, index) => (
           <div key={index} className="flex">
             {announcements.map((announcement, i) => (
@@ -254,7 +239,7 @@ function AnnouncementBar() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function HairRestorationSteps() {
