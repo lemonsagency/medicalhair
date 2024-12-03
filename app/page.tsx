@@ -214,7 +214,7 @@ function HeroSection() {
                     I agree to the terms
                   </label>
                   <p className="text-xs text-[#1c2641]">
-                    By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s Terms of Service.
+                    By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s <Link href="/terms" className="text-blue-600 hover:underline">Terms of Service</Link>.
                   </p>
                 </div>
               </div>
