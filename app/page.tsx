@@ -17,6 +17,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { FormStatus } from '@/components/FormStatus';
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox"
 
 function Header() {
   return (
@@ -47,6 +48,7 @@ function HeroSection() {
   })
 
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [consentChecked, setConsentChecked] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -68,9 +70,9 @@ function HeroSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Validate all fields are filled
-    if (!formData.firstName || !formData.lastName || !formData.phone || !formData.email) {
-      alert('Please fill in all fields');
+    // Validate all fields are filled and consent is given
+    if (!formData.firstName || !formData.lastName || !formData.phone || !formData.email || !consentChecked) {
+      alert('Please fill in all fields and agree to the terms');
       return;
     }
 
@@ -198,13 +200,25 @@ function HeroSection() {
                   maxLength={100}
                 />
               </div>
-              <p className="text-xs text-[#1c2641]">
-                This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
-              </p>
-              <p className="text-xs text-[#1c2641]">
-                By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s Terms of Service.
-              </p>
-              <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white" disabled={formStatus === 'submitting'}>
+              <div className="flex items-start space-x-2 mb-4">
+                <Checkbox
+                  id="consent"
+                  checked={consentChecked}
+                  onCheckedChange={(checked) => setConsentChecked(checked as boolean)}
+                />
+                <div className="grid gap-1.5 leading-none">
+                  <label
+                    htmlFor="consent"
+                    className="text-xs text-[#1c2641] font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    I agree to the terms
+                  </label>
+                  <p className="text-xs text-[#1c2641]">
+                    By submitting this form, I authorize MedicalHair to contact me by phone or text utilizing automated dialing equipment, as well as by email or mail with information about appointments, products, services, news or promotions. I understand that I&apos;m not required to give consent as a condition of purchasing any property, goods, or services. I also agree to MedicalHair&apos;s Terms of Service.
+                  </p>
+                </div>
+              </div>
+              <Button type="submit" className="w-full bg-[#0063af] hover:bg-[#004d8c] text-white" disabled={formStatus === 'submitting' || !consentChecked}>
                 {formStatus === 'submitting' ? 'Submitting...' : 'Get Started'}
               </Button>
               <FormStatus status={formStatus} />
